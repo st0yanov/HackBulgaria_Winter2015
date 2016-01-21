@@ -1,8 +1,7 @@
 class String
   def to_proc
     proc do |obj, args|
-      multi = self.split('.')
-      multi.each do |method|
+      self.split('.').each do |method|
         obj = obj.send(method, *args)
       end
       obj
