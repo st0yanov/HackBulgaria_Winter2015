@@ -1,7 +1,13 @@
 class String
   def to_proc
-    proc { |obj, args| obj.send(self, *args) }
+    proc do |obj, args|
+      multi = self.split('.')
+      multi.each do |method|
+        obj = obj.send(method, *args)
+      end
+      obj
+    end
   end
 end
 
-p [1, 2, 3].inject(&'+')
+p [2, 3, 4, 5].map(&'succ.succ.succ.pred.pred.pred')
